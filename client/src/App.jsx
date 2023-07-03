@@ -5,8 +5,10 @@ import "./App.css";
 import { fetchRequest } from "./service/fetch";
 
 function App() {
-  const [listTask, setListTask] = useState([]);
+  const [listTask, setListTask] = useState(null);
   const [task, setTask] = useState("");
+
+  // Get all todo
   const getTask = async () => {
     const data = await fetchRequest("todos", "GET");
     setListTask(data);
@@ -16,18 +18,29 @@ function App() {
     getTask();
   }, []);
 
+  // Add a new task
   const addTask = async (e) => {
     e.preventDefault();
     const payload = { todoItem: task };
     const data = await fetchRequest("todos/createTodo", "POST", payload);
     console.log(data);
+    getTask(); //Re-render the Todos component
+    setTask("");
+  };
+
+  // Delete a task
+  const deleteTask = async (id) => {
+    const payload = { todoIdFromJSFile: id };
+    const data = await fetchRequest("todos/deleteTodo", "DELETE", payload);
+    console.log(data);
+    getTask(); //Re-render the Todos component
   };
   return (
     <>
       <h1>Get Sh!t Done</h1>
       {/* Display all task */}
       <div className="">
-        {listTask.todos.length > 0 &&
+        {listTask &&
           listTask.todos.map((item) => {
             return (
               <div key={item._id} className="flex items-center ">
@@ -46,7 +59,7 @@ function App() {
                       console.log(e.target.value);
                     }}
                   />
-                  <span>Delete</span>
+                  <span onClick={() => deleteTask(item._id)}>Delete</span>
                 </div>
               </div>
             );
