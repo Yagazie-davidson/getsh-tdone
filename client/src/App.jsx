@@ -1,22 +1,15 @@
 import { useContext, useEffect } from "react";
 import "./App.css";
-import { fetchRequest } from "./service/fetch";
 import AddTask from "./components/AddTask";
 import TodoContext from "./context/TodoContext";
+import DeleteTask from "./components/DeleteTask";
 
 function App() {
   const { listTask, getTask } = useContext(TodoContext);
-  useEffect(() => {
-    getTask();
-  });
 
-  // Delete a task
-  const deleteTask = async (id) => {
-    const payload = { todoIdFromJSFile: id };
-    const data = await fetchRequest("todos/deleteTodo", "DELETE", payload);
-    console.log(data);
-    getTask(); //Re-render the Todos component
-  };
+  useEffect(() => {
+    getTask(); // fetch all task
+  }, []);
 
   return (
     <>
@@ -42,7 +35,7 @@ function App() {
                       console.log(e.target.value);
                     }}
                   />
-                  <span onClick={() => deleteTask(item._id)}>Delete</span>
+                  <DeleteTask id={item._id} />
                 </div>
               </div>
             );
