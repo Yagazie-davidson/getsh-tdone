@@ -29,7 +29,12 @@ function AddTask() {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <button onClick={addTask}>Add a task</button>
+        <button
+          onClick={addTask}
+          className="bg-violet-500 hover:bg-violet-600 text-white px-5 py-2 mt-1"
+        >
+          Add a task
+        </button>
       </div>
     </>
   );
