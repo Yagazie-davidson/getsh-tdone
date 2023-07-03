@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
-import { fetchRequest, getTodos } from "../service/fetch";
+import { fetchRequest } from "../service/fetch";
 import TodoContext from "../context/TodoContext";
 
 function AddTask() {
   const [task, setTask] = useState("");
-  const { getTask } = useContext(TodoContext);
+  const { getTask } = useContext(TodoContext); //Use the getTask Function from useContext to fetch new data after state update
 
   // Add a new task
   const addTask = async (e) => {
@@ -12,9 +12,10 @@ function AddTask() {
     const payload = { todoItem: task };
     const data = await fetchRequest("todos/createTodo", "POST", payload);
     console.log(data);
-    getTask(); //Re-render the Todos component
+    getTask();
     setTask("");
   };
+
   return (
     <>
       {" "}

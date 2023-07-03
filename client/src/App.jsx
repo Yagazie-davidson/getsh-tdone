@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import "./App.css";
-// import Button from "./components/Button";
-// import Input from "./components/Input";
-import { fetchRequest, getTodos } from "./service/fetch";
+import { fetchRequest } from "./service/fetch";
 import AddTask from "./components/AddTask";
 import TodoContext from "./context/TodoContext";
 
@@ -10,7 +8,7 @@ function App() {
   const { listTask, getTask } = useContext(TodoContext);
   useEffect(() => {
     getTask();
-  }, []);
+  });
 
   // Delete a task
   const deleteTask = async (id) => {
