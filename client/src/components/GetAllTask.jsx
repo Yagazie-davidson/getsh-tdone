@@ -1,12 +1,29 @@
 import { useContext, useEffect } from "react";
+import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import TodoContext from "../context/TodoContext";
 import DeleteTask from "./DeleteTask";
+import { fetchRequest } from "../service/fetch";
 function GetAllTask() {
   const { listTask, getTask, loading } = useContext(TodoContext);
 
   useEffect(() => {
     getTask(); // fetch all task
   }, []);
+
+  // mark todo as completed
+  const markAsCompleted = async (id) => {
+    const payload = { todoIdFromJSFile: id };
+    const { data } = await fetchRequest("todos/markComplete", "PUT", payload);
+    console.log(data);
+    getTask();
+  };
+  // mark todo as incompleted
+  const markAsIncompleted = async (id) => {
+    const payload = { todoIdFromJSFile: id };
+    const { data } = await fetchRequest("todos/markIncomplete", "PUT", payload);
+    console.log(data);
+    getTask();
+  };
 
   return (
     <>
@@ -15,7 +32,7 @@ function GetAllTask() {
           <p className="mb-10">Loading...</p> // Loading state
         ) : (
           <>
-            {listTask && listTask.left > 0 ? ( //map out the task list
+            {listTask ? ( //map out the task list
               listTask.todos.map((item) => (
                 <div key={item._id} className="flex items-center ">
                   <input
@@ -27,12 +44,16 @@ function GetAllTask() {
                     aria-label="Input box for todos"
                   />
                   <div className=" flex  items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      onClick={(e) => {
-                        console.log(e.target.value);
-                      }}
-                    />
+                    {item.completed ? (
+                      <ImCheckboxChecked
+                        onClick={() => markAsIncompleted(item._id)}
+                      />
+                    ) : (
+                      <ImCheckboxUnchecked
+                        onClick={() => markAsCompleted(item._id)}
+                      />
+                    )}
+
                     <DeleteTask id={item._id} />
                   </div>
                 </div>
