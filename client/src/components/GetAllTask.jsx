@@ -15,30 +15,31 @@ function GetAllTask() {
           <p className="mb-10">Loading...</p> // Loading state
         ) : (
           <>
-            {listTask && //map out the task list
-              listTask.todos.map((item) => {
-                return (
-                  <div key={item._id} className="flex items-center ">
+            {listTask && listTask.left > 0 ? ( //map out the task list
+              listTask.todos.map((item) => (
+                <div key={item._id} className="flex items-center ">
+                  <input
+                    placeholder="eg: Get eggs from the store"
+                    type="text"
+                    value={item.todo}
+                    disabled
+                    className={`mt-1 px-3 py-2 bg-white block sm:text-sm`}
+                    aria-label="Input box for todos"
+                  />
+                  <div className=" flex  items-center space-x-2">
                     <input
-                      placeholder="eg: Get eggs from the store"
-                      type="text"
-                      value={item.todo}
-                      disabled
-                      className={`mt-1 px-3 py-2 bg-white block sm:text-sm`}
-                      aria-label="Input box for todos"
+                      type="checkbox"
+                      onClick={(e) => {
+                        console.log(e.target.value);
+                      }}
                     />
-                    <div className=" flex  items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        onClick={(e) => {
-                          console.log(e.target.value);
-                        }}
-                      />
-                      <DeleteTask id={item._id} />
-                    </div>
+                    <DeleteTask id={item._id} />
                   </div>
-                );
-              })}
+                </div>
+              ))
+            ) : (
+              <p>Nothing here, Add new task</p>
+            )}
           </>
         )}
       </div>
