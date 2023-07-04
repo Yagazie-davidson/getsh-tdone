@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getTodos } from "../service/fetch";
+import { fetchRequest } from "../service/fetch";
 
 const TodoContext = createContext();
 
@@ -7,7 +7,7 @@ export function TodoProvider({ children }) {
   const [listTask, setListTask] = useState(null);
   // Get all todo
   const getTask = async () => {
-    const data = await getTodos();
+    const data = await fetchRequest("todos", "GET");
     setListTask(data);
     console.log(data);
   };
