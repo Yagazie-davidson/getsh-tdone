@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { fetchRequest } from "../service/fetch";
 import TodoContext from "../context/TodoContext";
+import { getDate, getTime } from "../service/getDate";
 
 function AddTask() {
   const [task, setTask] = useState("");
@@ -9,7 +10,7 @@ function AddTask() {
   // Add a new task
   const addTask = async (e) => {
     e.preventDefault();
-    const payload = { todoItem: task };
+    const payload = { todoItem: task, date: getDate(), time: getTime() };
     const data = await fetchRequest("todos/createTodo", "POST", payload);
     console.log(data);
     getTask();

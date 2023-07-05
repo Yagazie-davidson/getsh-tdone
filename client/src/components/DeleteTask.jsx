@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { fetchRequest } from "../service/fetch";
 import TodoContext from "../context/TodoContext";
+import { AiOutlineDelete } from "react-icons/ai";
 
 function DeleteTask({ id }) {
   const { getTask } = useContext(TodoContext); //Use the getTask function from useContext to fetch new data after state update
@@ -14,7 +15,10 @@ function DeleteTask({ id }) {
   };
   return (
     <>
-      <span onClick={() => deleteTask(id)}>Delete</span>
+      <AiOutlineDelete
+        className="cursor-pointer"
+        onClick={() => deleteTask(id)}
+      />
     </>
   );
 }
