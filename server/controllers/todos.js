@@ -12,7 +12,12 @@ module.exports = {
   },
   createTodo: async (req, res) => {
     try {
-      await Todo.create({ todo: req.body.todoItem, completed: false });
+      await Todo.create({
+        todo: req.body.todoItem,
+        completed: false,
+        date: req.body.date,
+        time: req.body.time,
+      });
       res.json({ message: "Todo has been added" });
       console.log("Todo has been added!");
     } catch (err) {
