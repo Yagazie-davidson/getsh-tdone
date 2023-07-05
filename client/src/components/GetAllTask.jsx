@@ -3,6 +3,7 @@ import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
 import TodoContext from "../context/TodoContext";
 import DeleteTask from "./DeleteTask";
 import { fetchRequest } from "../service/fetch";
+import EditTask from "./EditTask";
 function GetAllTask() {
   const { listTask, getTask, loading } = useContext(TodoContext);
 
@@ -56,6 +57,7 @@ function GetAllTask() {
                       aria-label="Input box for todos"
                     />
                     <div className=" flex  items-center space-x-2">
+                      <EditTask />
                       <DeleteTask id={item._id} />
                     </div>
                   </div>
