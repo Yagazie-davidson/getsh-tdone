@@ -32,7 +32,7 @@ function AddTask() {
         />
         <button
           onClick={addTask}
-          className="bg-violet-500 hover:bg-violet-600 text-white px-5 py-2 mt-1"
+          className="bg-violet-500 hover:bg-violet-600 text-white px-5 py-2 mt-1 transition ease-in-out delay-150 hover:scale-110 duration-300"
         >
           Add a task
         </button>

@@ -16,7 +16,7 @@ function DeleteTask({ id }) {
   return (
     <>
       <AiOutlineDelete
-        className="cursor-pointer"
+        className="cursor-pointer transition ease-in-out delay-150 hover:scale-125 duration-300"
         onClick={() => deleteTask(id)}
       />
     </>
