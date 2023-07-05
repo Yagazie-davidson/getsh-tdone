@@ -13,15 +13,13 @@ function GetAllTask() {
   // mark todo as completed
   const markAsCompleted = async (id) => {
     const payload = { todoIdFromJSFile: id };
-    const { data } = await fetchRequest("todos/markComplete", "PUT", payload);
-    console.log(data);
+    await fetchRequest("todos/markComplete", "PUT", payload);
     getTask();
   };
   // mark todo as incompleted
   const markAsIncompleted = async (id) => {
     const payload = { todoIdFromJSFile: id };
-    const { data } = await fetchRequest("todos/markIncomplete", "PUT", payload);
-    console.log(data);
+    await fetchRequest("todos/markIncomplete", "PUT", payload);
     getTask();
   };
 
@@ -34,32 +32,43 @@ function GetAllTask() {
           <>
             {listTask ? ( //map out the task list
               listTask.todos.map((item) => (
-                <div key={item._id} className="flex items-center ">
-                  <input
-                    placeholder="eg: Get eggs from the store"
-                    type="text"
-                    value={item.todo}
-                    disabled
-                    className={`mt-1 px-3 py-2 bg-white block sm:text-sm`}
-                    aria-label="Input box for todos"
-                  />
-                  <div className=" flex  items-center space-x-2">
+                <div key={item._id} className="">
+                  <div className="flex items-center ">
                     {item.completed ? (
                       <ImCheckboxChecked
+                        className="cursor-pointer"
                         onClick={() => markAsIncompleted(item._id)}
                       />
                     ) : (
                       <ImCheckboxUnchecked
+                        className="cursor-pointer"
                         onClick={() => markAsCompleted(item._id)}
                       />
                     )}
-
-                    <DeleteTask id={item._id} />
+                    <input
+                      placeholder="eg: Get eggs from the store"
+                      type="text"
+                      value={item.todo}
+                      disabled
+                      className={`mt-1 px-3 py-2 bg-white block sm:text-sm ${
+                        item.completed ? "line-through" : "no-underline"
+                      }`}
+                      aria-label="Input box for todos"
+                    />
+                    <div className=" flex  items-center space-x-2">
+                      <DeleteTask id={item._id} />
+                    </div>
                   </div>
+                  {/* <p>
+                    {" "}
+                    Added
+                    {item.date} at
+                    {item.time}
+                  </p> */}
                 </div>
               ))
             ) : (
-              <p>Nothing here, Add new task</p>
+              <p className="px-3 py-2 sm:text-sm">Nothing here, Add new task</p>
             )}
           </>
         )}
