@@ -21,7 +21,7 @@ function AddTask() {
     <>
       {" "}
       {/* Add new task */}
-      <div className="flex items-center space-x-4">
+      <div className="flex justify-center items-center space-x-4 mt-5">
         <input
           placeholder="eg: Get eggs from the store"
           type="text"
