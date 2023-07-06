@@ -16,7 +16,7 @@ function DeleteTask({ id }) {
   return (
     <span className="bg-[#ECEDF6] p-1 rounded">
       <AiOutlineDelete
-        className="cursor-pointer"
+        className="cursor-pointer transition ease-in-out delay-150 hover:scale-125 duration-300"
         onClick={() => deleteTask(id)}
       />
     </span>
