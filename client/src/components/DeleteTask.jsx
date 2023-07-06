@@ -14,12 +14,12 @@ function DeleteTask({ id }) {
     getTask();
   };
   return (
-    <>
+    <span className="bg-[#ECEDF6] p-1 rounded">
       <AiOutlineDelete
         className="cursor-pointer"
         onClick={() => deleteTask(id)}
       />
-    </>
+    </span>
   );
 }
 

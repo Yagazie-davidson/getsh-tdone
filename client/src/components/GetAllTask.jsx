@@ -26,36 +26,38 @@ function GetAllTask() {
 
   return (
     <>
-      <div>
+      <div className="bg-[#ECEDF6] px-10 py-12 mx-72 rounded-lg">
         {loading ? (
-          <p className="mb-10">Loading...</p> // Loading state
+          <p className="text-center">Loading...</p> // Loading state
         ) : (
-          <>
+          <div className="space-y-4">
             {listTask ? ( //map out the task list
               listTask.todos.map((item) => (
-                <div key={item._id} className="">
-                  <div className="flex items-center ">
-                    {item.completed ? (
-                      <ImCheckboxChecked
-                        className="cursor-pointer"
-                        onClick={() => markAsIncompleted(item._id)}
+                <div key={item._id} className=" bg-white px-5 rounded-lg">
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      {item.completed ? (
+                        <ImCheckboxChecked
+                          className="cursor-pointer"
+                          onClick={() => markAsIncompleted(item._id)}
+                        />
+                      ) : (
+                        <ImCheckboxUnchecked
+                          className="cursor-pointer"
+                          onClick={() => markAsCompleted(item._id)}
+                        />
+                      )}
+                      <input
+                        placeholder="eg: Get eggs from the store"
+                        type="text"
+                        value={item.todo}
+                        disabled
+                        className={`mt-1 px-3 py-2 bg-white block sm:text-sm ${
+                          item.completed ? "line-through" : "no-underline"
+                        }`}
+                        aria-label="Input box for todos"
                       />
-                    ) : (
-                      <ImCheckboxUnchecked
-                        className="cursor-pointer"
-                        onClick={() => markAsCompleted(item._id)}
-                      />
-                    )}
-                    <input
-                      placeholder="eg: Get eggs from the store"
-                      type="text"
-                      value={item.todo}
-                      disabled
-                      className={`mt-1 px-3 py-2 bg-white block sm:text-sm ${
-                        item.completed ? "line-through" : "no-underline"
-                      }`}
-                      aria-label="Input box for todos"
-                    />
+                    </div>
                     <div className=" flex  items-center space-x-2">
                       <EditTask />
                       <DeleteTask id={item._id} />
@@ -72,7 +74,7 @@ function GetAllTask() {
             ) : (
               <p className="px-3 py-2 sm:text-sm">Nothing here, Add new task</p>
             )}
-          </>
+          </div>
         )}
       </div>
     </>
@@ -80,3 +82,4 @@ function GetAllTask() {
 }
 
 export default GetAllTask;
+// ECEDF6
