@@ -11,12 +11,13 @@ module.exports = {
     }
   },
   createTodo: async (req, res) => {
+    const { todoItem, date, time } = req.body;
     try {
       await Todo.create({
-        todo: req.body.todoItem,
+        todo: todoItem,
         completed: false,
-        date: req.body.date,
-        time: req.body.time,
+        date: date,
+        time: time,
       });
       res.json({ message: "Todo has been added" });
       console.log("Todo has been added!");
@@ -26,11 +27,12 @@ module.exports = {
   },
   // filter todo
   filterTodo: async (req, res) => {
+    const { filter } = req.params;
     try {
-      if (req.params.filter == "completed") {
+      if (filter == "completed") {
         const todoItems = await Todo.find({ completed: true });
         res.json({ todos: todoItems });
-      } else if (req.params.filter == "uncompleted") {
+      } else if (filter == "uncompleted") {
         const todoItems = await Todo.find({ completed: false });
         res.json({ todos: todoItems });
       } else {
@@ -41,9 +43,10 @@ module.exports = {
     }
   },
   markComplete: async (req, res) => {
+    const { todoIdFromJSFile } = req.body;
     try {
       await Todo.findOneAndUpdate(
-        { _id: req.body.todoIdFromJSFile },
+        { _id: todoIdFromJSFile },
         {
           completed: true,
         }
@@ -55,9 +58,10 @@ module.exports = {
     }
   },
   markIncomplete: async (req, res) => {
+    const { todoIdFromJSFile } = req.body;
     try {
       await Todo.findOneAndUpdate(
-        { _id: req.body.todoIdFromJSFile },
+        { _id: todoIdFromJSFile },
         {
           completed: false,
         }
@@ -69,9 +73,9 @@ module.exports = {
     }
   },
   deleteTodo: async (req, res) => {
-    console.log(req.body.todoIdFromJSFile);
+    const { todoIdFromJSFile } = req.body;
     try {
-      await Todo.findOneAndDelete({ _id: req.body.todoIdFromJSFile });
+      await Todo.findOneAndDelete({ _id: todoIdFromJSFile });
       console.log("Deleted Todo");
       res.json("Deleted It");
     } catch (err) {
