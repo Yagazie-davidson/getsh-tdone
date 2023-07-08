@@ -24,6 +24,22 @@ module.exports = {
       console.log(err);
     }
   },
+  // filter todo
+  filterTodo: async (req, res) => {
+    try {
+      if (req.params.filter == "completed") {
+        const todoItems = await Todo.find({ completed: true });
+        res.json({ todos: todoItems });
+      } else if (req.params.filter == "uncompleted") {
+        const todoItems = await Todo.find({ completed: false });
+        res.json({ todos: todoItems });
+      } else {
+        console.log(undefined);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  },
   markComplete: async (req, res) => {
     try {
       await Todo.findOneAndUpdate(
